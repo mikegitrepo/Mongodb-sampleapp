@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+</head>
+<body>
+
+<h1>My First Heading</h1>
+
+<p>My first paragraph.</p>
+<?php
+$str = '=?WINDOWS-1252?Q?Wake_up_call_for_the_owner=92s_un?= =?WINDOWS-1252?Q?ity@smondoville_some=5Funderscore?=';
+//$somestr = 't this, you can losslessly recode anyt';
+// $existingencoding = mb_detect_encoding($str) ;
+//echo mb_convert_encoding($str, 'UTF-8'); 
+// Set the internal character encoding
+mb_internal_encoding("UTF-8");
+
+//echo iconv("Windows‑1252","UTF-8", $str);
+
+// Outputs ' Use of “Quotes” '
+//echo mb_decode_mimeheader($str);
+//echo '\n';
+
+//echo mb_decode_mimeheader(str_replace('_', ' ', $str));
+//echo '\n';
+$somemime = '';
+$elements = imap_mime_header_decode($str);
+for ($i=0; $i<count($elements); $i++) {
+    echo "Charset: {$elements[$i]->charset}\n";
+    $somemime .= $elements[$i]->text;
+}
+//echo mb_decode_mimeheader($somemime);
+echo $somemime;
+echo mb_convert_encoding($somemime, 'UTF-8');
+?>
+</body>
+</html>
